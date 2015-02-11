@@ -30,11 +30,47 @@ module.exports = function(grunt){
 					'index.html': 'assets/index.html',
 				}
 			}
-	    }
-
+	    },
+	    // optimize image files
+	    imagemin: {
+		    png: {
+		      options: {
+		        optimizationLevel: 7
+		      },
+		      files: [
+		        {
+		          // Set to true to enable the following options…
+		          expand: true,
+		          // cwd is 'current working directory'
+		          cwd: 'assets/img/',
+		          src: ['**/*.png'],
+		          // Could also match cwd line above. i.e. project-directory/img/
+		          dest: 'img/',
+		          ext: '.png'
+		        }
+		      ]
+		    },
+		    jpg: {
+		      options: {
+		        progressive: true
+		      },
+		      files: [
+		        {
+		          // Set to true to enable the following options…
+		          expand: true,
+		          // cwd is 'current working directory'
+		          cwd: 'assets/img/',
+		          src: ['**/*.jpg'],
+		          // Could also match cwd. i.e. project-directory/img/
+		          dest: 'img/',
+		          ext: '.jpg'
+		        }
+		      ]
+		    }
+  		}
     });
 
 	// Default task.
-  	grunt.registerTask('default', ['cssmin', 'uglify', 'inline']);
+  	grunt.registerTask('default', ['cssmin', 'uglify', 'inline', 'imagemin']);
 
 };

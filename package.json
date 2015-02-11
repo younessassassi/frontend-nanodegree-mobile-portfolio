@@ -9,6 +9,7 @@
     "grunt-contrib-uglify":         "*",
     "grunt-inline": 				        "*",
     "grunt-htmlhint":               "*",
-    "matchdep":                     "*"
+    "matchdep":                     "*",
+    "grunt-contrib-imagemin":       "*"
   }
 }
