@@ -3,6 +3,23 @@ module.exports = function(grunt){
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+
+        htmlhint: {
+		    build: {
+		        options: {
+		            //'tag-pair': true,
+		            'tagname-lowercase': true,
+		            'attr-lowercase': true,
+		            'attr-value-double-quotes': true,
+		            'doctype-first': true,
+		            'spec-char-escape': true,
+		            'id-unique': true,
+		            //'head-script-disabled': true,
+		            //'style-disabled': true
+		        },
+		        src: ['assets/index.html', 'assets/views/pizza.html']
+		    }
+		},
         // Keep JavaScript as lean as possible
 		uglify: {
 		    build: {
@@ -35,7 +52,8 @@ module.exports = function(grunt){
 	    imagemin: {
 		    png: {
 		      options: {
-		        optimizationLevel: 7
+		        optimizationLevel: 7,
+		         progressive: true
 		      },
 		      files: [
 		        {
@@ -60,7 +78,8 @@ module.exports = function(grunt){
 		    },
 		    jpg: {
 		      options: {
-		        progressive: true
+		        progressive: true,
+		        optimizationLevel: 7
 		      },
 		      files: [
 		        {
@@ -84,9 +103,24 @@ module.exports = function(grunt){
 		        }
 		      ]
 		    }
-  		}
+  		},
+  		// Run automated tasks when files are updated
+  		watch: {
+		    html: {
+		        files: ['assets/index.html', 'assets/views/pizza.html'],
+		        tasks: ['htmlhint', 'inline']
+		    },
+		    js: {
+                files: ['assets/js/perfmatters.js'],
+                tasks: ['uglify']
+            },
+            images: {
+            	files: ['assets/img/**/*.png', 'assets/img/**/*.jpg', 'assets/views/images/**/*.png', 'assets/views/images/**/*.jpg'],
+            	tasks: ['imagemin']
+            }
+		}
     });
 
 	// Default task.
-  	grunt.registerTask('default', ['uglify', 'inline', 'imagemin']);
+  	grunt.registerTask('default', ['htmlhint', 'uglify', 'inline', 'imagemin', 'watch']);
 };
