@@ -11,13 +11,13 @@ module.exports = function(grunt){
 		    },
 		},
 		// Minify css files
-		cssmin: {
+		/*cssmin: {
 			target: {
      		 	files: [
       				{src: '*.css', dest: 'css/',  expand: true,  cwd: 'assets/css', ext: '.min.css'},
       			],
       		},
-		},
+		},*/
 		// inline css and js within html files
 		inline: {
 			dist: {
@@ -88,5 +88,5 @@ module.exports = function(grunt){
     });
 
 	// Default task.
-  	grunt.registerTask('default', ['cssmin', 'uglify', 'inline', 'imagemin']);
+  	grunt.registerTask('default', ['uglify', 'inline', 'imagemin']);
 };
