@@ -48,62 +48,6 @@ module.exports = function(grunt){
 				}
 			}
 	    },
-	    // optimize image files
-	    imagemin: {
-		    png: {
-		      options: {
-		        optimizationLevel: 7,
-		         progressive: true
-		      },
-		      files: [
-		        {
-		          // Set to true to enable the following options…
-		          expand: true,
-		          // cwd is 'current working directory'
-		          cwd: 'assets/img/',
-		          src: ['**/*.png'],
-		          dest: 'img/',
-		          ext: '.png'
-		        },
-		        {
-		          // Set to true to enable the following options…
-		          expand: true,
-		          // cwd is 'current working directory'
-		          cwd: 'assets/views/images/',
-		          src: ['**/*.png'],
-		          dest: 'views/images/',
-		          ext: '.png'
-		        }
-		      ]
-		    },
-		    jpg: {
-		      options: {
-		        progressive: true,
-		        optimizationLevel: 7
-		      },
-		      files: [
-		        {
-		          // Set to true to enable the following options…
-		          expand: true,
-		          // cwd is 'current working directory'
-		          cwd: 'assets/img/',
-		          src: ['**/*.jpg'],
-		          // Could also match cwd. i.e. project-directory/img/
-		          dest: 'img/',
-		          ext: '.jpg'
-		        },
-		        {
-		          // Set to true to enable the following options…
-		          expand: true,
-		          // cwd is 'current working directory'
-		          cwd: 'assets/views/images/',
-		          src: ['**/*.jpg'],
-		          dest: 'views/images/',
-		          ext: '.jpg'
-		        }
-		      ]
-		    }
-  		},
   		// Run automated tasks when files are updated
   		watch: {
 		    html: {
@@ -113,14 +57,10 @@ module.exports = function(grunt){
 		    js: {
                 files: ['assets/js/perfmatters.js'],
                 tasks: ['uglify']
-            },
-            images: {
-            	files: ['assets/img/**/*.png', 'assets/img/**/*.jpg', 'assets/views/images/**/*.png', 'assets/views/images/**/*.jpg'],
-            	tasks: ['imagemin']
             }
 		}
     });
 
 	// Default task.
-  	grunt.registerTask('default', ['htmlhint', 'uglify', 'inline', 'imagemin', 'watch']);
+  	grunt.registerTask('default', ['htmlhint', 'uglify', 'inline', 'watch']);
 };
