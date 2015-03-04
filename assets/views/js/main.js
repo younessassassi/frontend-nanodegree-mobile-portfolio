@@ -142,6 +142,8 @@ pizzaIngredients.crusts = [
   "Stuffed Crust"
 ];
 
+
+
 // Name generator pulled from http://saturdaykid.com/usernames/generator.html
 // Capitalizes first letter of each word
 String.prototype.capitalize = function() {
@@ -406,13 +408,14 @@ var resizePizzas = function(size) {
   function changeSliderLabel(size) {
     switch(size) {
       case "1":
-        document.querySelector("#pizzaSize").innerHTML = "Small";
+        //document.getElementById("#pizzaSize").innerHTML = "Small";
+        document.getElementById("pizzaSize").innerHTML = "Small";
         return;
       case "2":
-        document.querySelector("#pizzaSize").innerHTML = "Medium";
+        document.getElementById("pizzaSize").innerHTML = "Medium";
         return;
       case "3":
-        document.querySelector("#pizzaSize").innerHTML = "Large";
+        document.getElementById("pizzaSize").innerHTML = "Large";
         return;
       default:
         console.log("bug in changeSliderLabel");
@@ -424,7 +427,7 @@ var resizePizzas = function(size) {
   // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
   function determineDx (elem, size) {
     var oldwidth = elem.offsetWidth;
-    var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
+    var windowwidth = document.getElementById("randomPizzas").offsetWidth;
     var oldsize = oldwidth / windowwidth;
 
     // TODO: change to 3 sizes? no more xl?
@@ -450,10 +453,14 @@ var resizePizzas = function(size) {
 
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
-    for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
-      var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
-      var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
-      document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
+
+    //retrieve the randomPizzaContainer pizza elements just once
+    var randomPizzaContainersArr = document.getElementsByClassName("randomPizzaContainer");
+     var dx = determineDx(randomPizzaContainersArr[0], size);
+      var newwidth = (randomPizzaContainersArr[0].offsetWidth + dx) + 'px';
+
+    for (var i = 0; i < randomPizzaContainersArr.length; i++) {
+         randomPizzaContainersArr[i].style.width = newwidth;
     }
   }
 
@@ -503,10 +510,19 @@ function updatePositions() {
   window.performance.mark("mark_start_frame");
 
   var items = document.getElementsByClassName('mover');
-  console.log(items);
+  phase1 = Math.sin(document.body.scrollTop / 1250);
+  phase2 = Math.sin((document.body.scrollTop / 1250) + 1);
+  phase3 = Math.sin((document.body.scrollTop / 1250) + 2);
+  phase4 = Math.sin((document.body.scrollTop / 1250) + 3);
+  phase5 = Math.sin((document.body.scrollTop / 1250) + 4);
+  var phaseArr = [phase1, phase2, phase3, phase4, phase5];
+
   for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+   // var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
+    //console.log(phase, (document.body.scrollTop / 1250), i % 5, document.body.scrollTop) ;
+   //   items[i].style.transform = 'translate3d(' + (items[i].basicLeft + 100 * phaseArr[i % 5]) + 'px, 0px, 0px)';
+ //   items[i].style.transform = "translate(" + items[i].basicLeft + 100 * phaseArr[i % 5] + "px)";
+    items[i].style.left = items[i].basicLeft + 100 * phaseArr[i % 5] + 'px';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -520,13 +536,16 @@ function updatePositions() {
 }
 
 // runs updatePositions on scroll
-window.addEventListener('scroll', window.requestAnimationFrame(updatePositions));
+window.addEventListener('scroll', function () {
+  window.requestAnimationFrame(updatePositions);
+});
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', window.requestAnimationFrame(function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 200; i++) {
+  var numOfPizzas = cols * ((screen.height / s) + 1);
+  for (var i = 0; i < numOfPizzas; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
