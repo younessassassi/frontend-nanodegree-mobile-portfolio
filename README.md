@@ -4,6 +4,8 @@ The resulting website can be accessed <a href="http://younessassassi.github.io/f
 
 The purpose of this project was to learn critical skills needed to optimize a website or web application for speed.  The skills included identifying critical rendering path then use tools such as GRUNT to automate minimizing CSS and JS code, and inlining it within the HTML tags. Other skills learned were how to manage large assets such images, as well optimizing scripts to ensure faster page loads.
 
+Note: assests folder contains all source files before css and js minification and inlining.
+
 <a href="http://younessassassi.github.io/frontend-nanodegree-mobile-portfolio/#">index.html</a> has been enhanced by doing the following:
 - inlined minified CSS
 - inlined minified js
