@@ -13,13 +13,13 @@ The purpose of this project was to learn critical skills needed to optimize a we
 
 - For practice, I had applied the same index.html enhancements to all the linked webpages project-2048, project-mobiel and project-webperf
 
-<a href="http://younessassassi.github.io/frontend-nanodegree-mobile-portfolio/views/#">pizza.html</a> has been enhanced by doing the following:
+<a href="http://younessassassi.github.io/frontend-nanodegree-mobile-portfolio/views/pizza.html">pizza.html</a> has been enhanced by doing the following:
 - inlined minified CSS
 - inlined minified js
 - resized image files
 - updated a few js functions responsible for displaying pizzas on screen such as:
-		* moved Math.sin(document.body.scrollTop / 1250) out of the loop in updatePositions()
-		* moved dx and newwidth variables out of the loop in changePizzaSizes and enhnaced the code accordignly
-		* used document.getElementsBy.. instead of document.querySelectorAll across the board
-		* genrated only the necessary number of pizzas based on the screen size rather than fixed number of 200
-		* used window.requestAnimationFrame for more efficient animation
+	- moved Math.sin(document.body.scrollTop / 1250) out of the loop in updatePositions()
+	- moved dx and newwidth variables out of the loop in changePizzaSizes and enhnaced the code accordignly
+	- used document.getElementsBy.. instead of document.querySelectorAll across the board
+	- genrated only the necessary number of pizzas based on the screen size rather than fixed number of 200
+	- used window.requestAnimationFrame for more efficient animation
