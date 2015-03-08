@@ -13,9 +13,7 @@ module.exports = function(grunt){
 		            'attr-value-double-quotes': true,
 		            'doctype-first': true,
 		            'spec-char-escape': true,
-		            'id-unique': true,
-		            //'head-script-disabled': true,
-		            //'style-disabled': true
+		            'id-unique': true
 		        },
 		        src: ['assets/index.html', 'assets/views/pizza.html']
 		    }
@@ -27,14 +25,14 @@ module.exports = function(grunt){
 		    	dest: 'js/perfmatters.min.js'
 		    },
 		},
-		// Minify css files
-		/*cssmin: {
-			target: {
-     		 	files: [
-      				{src: '*.css', dest: 'css/',  expand: true,  cwd: 'assets/css', ext: '.min.css'},
-      			],
-      		},
-		},*/
+		// keep CSS as lean as possible
+		cssmin: {
+		  target: {
+		    files: {
+		      'css/print.min.css': ['assets/css/print.css']
+		    }
+		  }
+		},
 		// inline css and js within html files
 		inline: {
 			dist: {
@@ -45,22 +43,29 @@ module.exports = function(grunt){
 				files: {
 					'views/pizza.html': 'assets/views/pizza.html',
 					'index.html': 'assets/index.html',
+					'project-2048.html': 'assets/project-2048.html',
+					'project-webperf.html': 'assets/project-webperf.html',
+					'project-mobile.html': 'assets/project-mobile.html'
 				}
 			}
 	    },
   		// Run automated tasks when files are updated
   		watch: {
 		    html: {
-		        files: ['assets/index.html', 'assets/views/pizza.html'],
+		        files: ['assets/index.html', 'assets/views/pizza.html', 'assets/project-2048.html', 'assets/project-webperf.html', 'assets/project-mobile.html'],
 		        tasks: ['htmlhint', 'inline']
 		    },
 		    js: {
                 files: ['assets/js/perfmatters.js'],
                 tasks: ['uglify']
+            },
+            css: {
+            	files: ['assets/css/print.css'],
+                tasks: ['cssmin']
             }
 		}
     });
 
 	// Default task.
-  	grunt.registerTask('default', ['htmlhint', 'uglify', 'inline', 'watch']);
+  	grunt.registerTask('default', ['htmlhint', 'cssmin', 'uglify', 'inline', 'watch']);
 };
